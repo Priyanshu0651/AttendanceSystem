@@ -13,30 +13,35 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     
     <title> {% block title %} {% endblock title %}</title>
-
+<style>
+    body{
+        
+        max-width:100%;
+    }
+</style>
 
 </head>
 
-<body>
+<body width : 100vw>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <div id="nav">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/">Attendence System</a>
+                        <a class="nav-link active" aria-current="page" href="/">Attendence System</a>
                     </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link " href="/about">About</a>
                     </li> -->
                     <li class="nav-item">
-                        <a class="nav-link " href="/register">Registration</a>
+                        <a class="nav-link active " href="/register">Registration</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/attendance">Attendance</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/attendance">Attendance</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/rsl">Registered Students</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/rsl">Registered Students</a>
                     </li>
                 </ul>
             </div>

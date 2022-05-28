@@ -11,7 +11,7 @@ import face_recognition
 import pickle
 import pytz
 
-from helper import helper1, remove#, export_data
+from helper import helper1, remove, export_data
 import shutil
 
 
@@ -72,52 +72,61 @@ def register():
             success, frame = camera.read()
             if(success):
                 name = request.form['Name']
-                name = name.upper() 
+                roll = request.form['RollNumber']
 
-                roll = int(request.form['RollNumber'])
-                with open("static/knownRolls", "rb") as fp:
-                    knownRolls = pickle.load(fp)
+                print(name)
+                print(roll)
 
-                if(roll in knownRolls):
-                    # if student with same roll number is already registered
-                    flash("Student with same roll number is already registered!",'error')
-                    
+                if (len(name)<=0 or len(roll)<=0):
+                    flash("Fill in the details before registering!",'error')
+                
                 else:
-                    temp = name + '@' + str(roll) + '.png'
-                    p = os.path.sep.join(['static/Train', temp])
-                    p = remove(p)
-                    t = remove(temp)
+                    roll = int(request.form['RollNumber'])
+                    name = name.upper() 
+                                        
+                    with open("static/knownRolls", "rb") as fp:
+                        knownRolls = pickle.load(fp)
 
-                    img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                    encode = face_recognition.face_encodings(img)[0]
-
-                    if(len(encode) > 0):
-                        cv2.imwrite(p, frame)
-                        with open("static/knownEncode", "rb") as fp:
-                            knownEncode = pickle.load(fp)
-                        with open("static/knownNames", "rb") as fp:
-                            knownNames = pickle.load(fp)
-
-                        knownEncode.append(encode)
-                        knownNames.append(name)
-                        knownRolls.append(roll)
-                        with open("static/knownEncode", "wb") as fp:
-                            pickle.dump(knownEncode, fp)
-
-                        with open("static/knownNames", "wb") as fp:
-                            pickle.dump(knownNames, fp)
-
-                        with open("static/knownRolls", "wb") as fp:
-                            pickle.dump(knownRolls, fp)
-
-                        a = attendanceRegister(name=name, roll=roll)
-                        db.session.add(a)
-                        db.session.commit()
-                        flash("You are successfully registered!", 'success')
-
+                    if(roll in knownRolls):
+                        # if student with same roll number is already registered
+                        flash("Student with same roll number is already registered!",'error')
+                        
                     else:
-                        # if face has not been detected then len(encoding) = 0
-                        flash("Your face has not been detected, kindly focus camera a bit more!", 'error')
+                        temp = name + '@' + str(roll) + '.png'
+                        p = os.path.sep.join(['static/Train', temp])
+                        p = remove(p)
+                        t = remove(temp)
+
+                        img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                        encode = face_recognition.face_encodings(img)[0]
+
+                        if(len(encode) > 0):
+                            cv2.imwrite(p, frame)
+                            with open("static/knownEncode", "rb") as fp:
+                                knownEncode = pickle.load(fp)
+                            with open("static/knownNames", "rb") as fp:
+                                knownNames = pickle.load(fp)
+
+                            knownEncode.append(encode)
+                            knownNames.append(name)
+                            knownRolls.append(roll)
+                            with open("static/knownEncode", "wb") as fp:
+                                pickle.dump(knownEncode, fp)
+
+                            with open("static/knownNames", "wb") as fp:
+                                pickle.dump(knownNames, fp)
+
+                            with open("static/knownRolls", "wb") as fp:
+                                pickle.dump(knownRolls, fp)
+
+                            a = attendanceRegister(name=name, roll=roll)
+                            db.session.add(a)
+                            db.session.commit()
+                            flash("You are successfully registered!", 'success')
+
+                        else:
+                            # if face has not been detected then len(encoding) = 0
+                            flash("Your face has not been detected, kindly focus camera a bit more!", 'error')
 
     dicti = helper1()
     return render_template('registeration.html', dicti=dicti)

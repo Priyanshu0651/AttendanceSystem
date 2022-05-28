@@ -1,3 +1,4 @@
+
 #image{
     display: block;
     margin-left: auto;
@@ -8,9 +9,7 @@
 #streaming{
     text-align: center;
 }
-body{
-    /* background-color: red; */
-}
+
 .alert {
     width:10%;    
  }
