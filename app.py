@@ -3,7 +3,7 @@ from flask import Flask, render_template, Response, request, redirect, flash, se
 import cv2
 import os
 import numpy as np
-# import pandas as pd
+import pandas as pd
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import time
@@ -11,7 +11,7 @@ import face_recognition
 import pickle
 import pytz
 
-from helper import helper1, remove, export_data
+from helper import helper1, remove#, export_data
 import shutil
 
 

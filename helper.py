@@ -2,7 +2,7 @@ import pickle
 import os
 from encoder import encode
 
-import pandas as pd
+# import pandas as pd
 import string
   
 def remove(string):
