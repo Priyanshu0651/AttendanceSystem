@@ -11,7 +11,7 @@ import face_recognition
 import pickle
 import pytz
 
-from helper import helper1, remove, export_data
+from helper import helper1, remove
 import shutil
 
 
