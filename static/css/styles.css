@@ -9,13 +9,13 @@
     text-align: center;
 }
 body{
-    background-color: red;
+    /* background-color: red; */
 }
 .alert {
     width:10%;    
  }
 #nav li a:hover {
-    background-color: #87CEEB;
+    background-color:#F0FFFF;
 }
           
       
