@@ -1,8 +1,5 @@
 import pickle
 import os
-from encoder import encode
-
-import pandas as pd
 import string
   
 def remove(string):
@@ -10,8 +7,6 @@ def remove(string):
     removes all the spaces from a string
     '''
     return "".join(string.split())
-
-
 
 
 def helper1():
@@ -47,8 +42,6 @@ def helper1():
    return dicti
 
 if __name__ == "__main__":
-    # export_data()
-    # encoderCheck()
     dicti = helper1()
     for key in dicti:
         print(key,'-',dicti[key])  
