@@ -210,10 +210,12 @@ def download():
 
     print(dicti)
     df = pd.DataFrame.from_dict(dicti)
+    now = datetime.now(tz)
+    date = str(now.strftime("%d-%m-%Y"))
+    filename = "AttendanceSheet"+'_'+ date+'.csv'
+    df.to_csv(f"static/{filename}")
 
-    df.to_csv("static/attendance.csv")
-
-    return send_file("static/attendance.csv", as_attachment=True)
+    return send_file(f"static/{filename}", as_attachment=True)
 
 
 @app.route('/delete/<int:roll>')

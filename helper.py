@@ -9,6 +9,7 @@ def remove(string):
     return "".join(string.split())
 
 
+
 def helper1():
 
    '''
