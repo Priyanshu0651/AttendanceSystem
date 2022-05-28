@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %} Home{% endblock title %}
+{% block body %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8  offset-lg-2">
+            
+
+            <div class="container my-5">
+                
+                <p style="font-family: 'Times New Roman';font-size:300%; text-align: center;"> Registered Students
+                </p>
+
+                {% if dicti|length == 0 %}
+
+                <div class="alert alert-dark" role="alert">
+                    No record, add Attendence now!
+                </div>
+                {% else %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">   
+                            </th>
+                            <th scope="col">
+                                <p style="font-family: 'Times New Roman';font-size:120%;">Name</p>
+                            </th>
+
+                            <th scope="col">
+                                <p style="font-family: 'Times New Roman';font-size:120%;">Roll Number</p>
+                            </th>
+                            
+                            <th scope="col">
+                                <p style="font-family: 'Times New Roman';font-size:120%;">Image</p>
+                            </th>
+                            <th scope="col">
+                                <p style="font-family: 'Times New Roman';font-size:120%;">Actions</p>
+                            </th>
+                            <!-- <th scope="col">Time</th> -->
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for key in dicti %}
+                        <tr>
+                            <th scope="row">{{loop.index}}</th>
+                            <td>
+                                <p style="font-family: 'Times New Roman';font-size:100%;">{{dicti[key][0]}}</p>
+                            </td>
+                            <td>
+                                <p style="font-family: 'Times New Roman';font-size:100%;">{{key}}</p>
+                            </td>
+                            <td><img src={{dicti[key][1]}} width="70" height="70" class="w3-round"></td>
+                            <td>
+                                <a href="/delete/{{key}}" type="button"
+                                    class="btn btn-outline-danger btn-sm mx-1">Unenroll</button>
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+
+
+            </div>
+
+
+            <!-- <img src="{{ url_for('video_feed') }}" height="50%" width="50%"> -->
+
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+{% endblock body %}

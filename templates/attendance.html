@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block title %} Attendance page {% endblock title %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8  offset-lg-2">
+
+            {% with errors = get_flashed_messages(category_filter=["success"]) %}
+            {% if errors %}
+            <div class="alert alert-success w-100" role="alert">
+                <a class="close" href="/attendance">×</a>
+                <ul>
+                    {%- for msg in errors %}
+                    <li>{{ msg }}</li>
+                    {% endfor -%}
+                </ul>
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            {% with errors = get_flashed_messages(category_filter=["error"]) %}
+            {% if errors %}
+            <div class="alert alert-danger w-100" role="alert">
+                <a class="close" href="/attendance">×</a>
+                <ul>
+                    {%- for msg in errors %}
+                    <li>{{ msg }}</li>
+                    {% endfor -%}
+                </ul>
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <div class="alert alert-primary my-2 w-100" role="alert">
+                Click Submit button to take Attendance now!
+            </div>
+            <div id="streaming">
+                <img src="{{ url_for('video_feed') }}" id="image" height="50%" width="50%">
+
+                <form method="post" action="{{ url_for('attendance') }}">
+
+                    <input type="submit" value="Submit" name="Submit" />
+
+                    <!-- <button type="submit" class="btn btn-outline-dark btn-sm mx-1 my-2">Submit</button> -->
+                    <!-- <button type="submit" class="btn btn-dark">Submit</button> -->
+                </form>
+                <!-- <h5 class="mt-5">Click Submit button to take Attendance now!</h5> -->
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    <!-- <span class="badge badge-secondary">Attendence Record</span> -->
+    <!-- <h2>Attendence Record</h2> -->
+    <p style="font-family: 'Times New Roman';font-size:300%; text-align: center;"> Attendence Record
+    </p>
+    <div class="float-right">
+        <form method="post" action="{{ url_for('download') }}">
+            <button type="submit" class="btn btn-link">
+
+                <p style="font-family: 'Times New Roman';font-size:120%; text-align: center;">
+                    Download Attendance sheet
+                </p>
+            </button>
+        </form>
+    </div>
+
+
+    {% if queries|length == 0 %}
+
+    <div class="alert alert-dark" role="alert">
+        No record, add Attendence now!
+    </div>
+    {% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                </th>
+                <p style="font-family: 'Times New Roman';font-size:120%;"> </p>
+                <th scope="col">
+                    <p style="font-family: 'Times New Roman';font-size:120%;">Name</p>
+                </th>
+                <th scope="col">
+                    <p style="font-family: 'Times New Roman';font-size:120%;">Roll Number</p>
+                </th>
+                <th scope="col">
+                    <p style="font-family: 'Times New Roman';font-size:120%;">Status</p>
+                </th>
+                <th scope="col">
+                    <p style="font-family: 'Times New Roman';font-size:140%;">Time</p>
+                </th>
+                <th scope="col">
+                    <p style="font-family: 'Times New Roman';font-size:120%;">Action</p>
+                </th>
+                <!-- <th scope="col">Time</th> -->
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for query in queries %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>
+                    {% set s = query.name %}
+                    {% set l = s.split('_') %}
+                    {% if l|length == 1%}
+                    <p style="font-family: 'Times New Roman';font-size:100%;">{{query.name}}</p>
+                </td>
+                {% else %}
+                <p style="font-family: 'Times New Roman';font-size:100%;">{{l[0] + ' ' + l[-1]}}</p>
+                </td>
+                {% endif %}
+                <td>
+                    <p style="font-family: 'Times New Roman';font-size:100%;">{{query.roll}}</p>
+                </td>
+                <td>
+                    {% if query.status == "Present" %}
+                    <div class="alert alert-success w-50" role="alert">
+                        {{query.status}}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-danger w-50" role="alert">
+                        {{query.status}}
+                    </div>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if query.status == "Present" %}
+                    <p style="font-family: 'Times New Roman';font-size:100%;">{{query.Time}}</p>
+                    {% else %}
+                    <p style="font-family: 'Times New Roman';font-size:80%;">N/A</p>
+
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/deleteAttendance/{{query.roll}}" type="button"
+                        class="btn btn-outline-warning btn-sm mx-1">Remove Attendance</button>
+                </td>
+            </tr>
+            <!-- btn-danger -->
+            <!-- btn btn-outline-dark  btn-sm mx-1 -->
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+
+</div>
+
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+{% endblock body %}

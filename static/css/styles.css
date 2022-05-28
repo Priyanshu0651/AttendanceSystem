@@ -1,0 +1,21 @@
+#image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    width: 40%;
+}
+#streaming{
+    text-align: center;
+}
+body{
+    background-color: red;
+}
+.alert {
+    width:10%;    
+ }
+#nav li a:hover {
+    background-color: #87CEEB;
+}
+          
+      
