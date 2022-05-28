@@ -3,7 +3,7 @@ from flask import Flask, render_template, Response, request, redirect, flash, se
 import cv2
 import os
 import numpy as np
-import pandas as pd
+# import pandas as pd
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import time
@@ -63,32 +63,6 @@ def gen_frames():  # generate frame by frame from camera
 def home():
     return render_template('home.html')
 
-# # @app.route('/about')
-# # def about():
-# #     return render_template('about.html')
-
-# def helper1():
-       
-#     dicti = {}
-#     root = "static/Train"
-#     l = []
-#     for i in os.listdir(root):
-#         if(i!=".DS_Store"):
-#             l.append(i)
-#     for items in l:
-#         path = os.path.join(root,items)
-#         firstname = path.split('/')[-1].split('.')[-2].split('@')[-2].split('_')[0]
-#         lastname = path.split('/')[-1].split('.')[-2].split('@')[-2].split('_')[-1]
-#         if(firstname!=lastname):
-#             name = firstname + " " + lastname
-#         else:
-#             name = firstname
-        
-#         name = name.upper()
-#         roll = int(path.split('/')[-1].split('.')[-2].split('@')[-1])
-#         path = remove(path)
-#         dicti[roll] = [name, path]
-#     return dicti
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
