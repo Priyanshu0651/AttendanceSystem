@@ -15,7 +15,6 @@ import shutil
 from helper import helper1, remove
 
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///attendance.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
