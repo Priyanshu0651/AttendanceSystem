@@ -10,9 +10,10 @@ import time
 import face_recognition
 import pickle
 import pytz
+import shutil
 
 from helper import helper1, remove
-import shutil
+
 
 
 app = Flask(__name__)
